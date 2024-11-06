@@ -4,11 +4,15 @@ import NoData from '../partials/icons/NoData'
 import ServerError from '../partials/icons/ServerError'
 import LoaderTable from '../partials/LoaderTable'
 import SpinnerTable from '../partials/spinners/SpinnerTable'
+import RamenModalAdd from './RamenModalAdd'
 
 
 const RamenTable = () => {
+  const [show, setShow] = React.useState(false)
   return (
-    <div className="m-8">
+    <>
+
+  <div className="m-8">
     <div className="flex justify-between items-center">
       <form action="">
         <div className="input-wrap relative">
@@ -23,7 +27,7 @@ const RamenTable = () => {
           />
         </div>
       </form>
-      <button className="btn btn-accent" >
+      <button className="btn btn-accent" onClick={()=> setShow(true)} >
         <Plus size={14} /> Add New
       </button>
     </div>
@@ -120,6 +124,9 @@ const RamenTable = () => {
       </table>
     </div>
   </div>
+
+  {show && <RamenModalAdd/>}
+    </>
 
 
   )

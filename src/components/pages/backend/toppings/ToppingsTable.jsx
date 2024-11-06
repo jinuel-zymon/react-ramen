@@ -4,53 +4,13 @@ import NoData from '../partials/icons/NoData'
 import ServerError from '../partials/icons/ServerError'
 import LoaderTable from '../partials/LoaderTable'
 import SpinnerTable from '../partials/spinners/SpinnerTable'
-import DrinksModalAdd from './DrinksModalAdd'
-import { StoreContext } from '@/components/store/storeContext'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { queryDataInfinite } from '@/components/helpers/queryDataInfinite'
+import ToppingsModalAdd from './ToppingsModalAdd'
 
 
-const DrinksTable = () => {
-  
-
-  const { store, dispatch } = React.useContext(StoreContext);
-  const [id, setId] = React.useState(null);
-  const [onSearch, setOnSearch] = React.useState(false);
-  const [page, setPage] = React.useState(1);
-  const search = React.useRef({ value: "" });
-  // const { ref, inView } = useInView();
-
-
-  const {
-    data: result,
-    error,
-    fetchNextPage,
-    refetch,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ["drinks", onSearch, store.isSearch],
-    queryFn: async ({ pageParam = 1 }) =>
-      await queryDataInfinite(
-        `/v1/drinks/search`, // search endpoint
-        `/v1/drinks/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
-        { searchValue: search.current.value, id: "" } // search value
-      ),
-    getNextPageParam: (lastPage) => {
-      if (lastPage.page < lastPage.total) {
-        return lastPage.page + lastPage.count;
-      }
-      return;
-    },
-    refetchOnWindowFocus: false,
-  });
-
-
-
+const ToppingsTable = () => {
+  const [show, setShow] = React.useState(false)
   return (
+
     <>
     
     <div className="m-8">
@@ -68,7 +28,7 @@ const DrinksTable = () => {
           />
         </div>
       </form>
-      <button className="btn btn-accent">
+      <button className="btn btn-accent" onClick={()=> setShow(true)}>
         <Plus size={14} /> Add New
       </button>
     </div>
@@ -165,8 +125,7 @@ const DrinksTable = () => {
       </table>
     </div>
   </div>
-
-{/* <DrinksModalAdd/> */}
+  {show && <ToppingsModalAdd/>}
     </>
 
 
@@ -174,6 +133,6 @@ const DrinksTable = () => {
 }
 
 
-export default DrinksTable
+export default ToppingsTable
 
 

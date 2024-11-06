@@ -4,10 +4,14 @@ import NoData from '../partials/icons/NoData'
 import ServerError from '../partials/icons/ServerError'
 import LoaderTable from '../partials/LoaderTable'
 import SpinnerTable from '../partials/spinners/SpinnerTable'
+import SidesDessertModalAdd from './SidesDessertModalAdd'
 
 
 const SidesDessertTable = () => {
+  const [show, setShow] = React.useState(false)
   return (
+<>
+
     <div className="m-8">
     <div className="flex justify-between items-center">
       <form action="">
@@ -23,7 +27,7 @@ const SidesDessertTable = () => {
           />
         </div>
       </form>
-      <button className="btn btn-accent" >
+      <button className="btn btn-accent" onClick={()=> setShow(true)}>
         <Plus size={14} /> Add New
       </button>
     </div>
@@ -120,6 +124,9 @@ const SidesDessertTable = () => {
       </table>
     </div>
   </div>
+  {show && <SidesDessertModalAdd/>}
+</>
+
 
 
   )
